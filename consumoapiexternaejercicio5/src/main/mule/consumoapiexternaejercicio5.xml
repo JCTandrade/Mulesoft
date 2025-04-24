@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1eed30d1-f7a4-42da-80b3-86e22273d88a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="77d87f44-eb4b-42f5-873f-e8a9bddbbfb0">
+		<http:request-connection protocol="HTTPS" host="jsonplaceholder.typicode.com" port="443" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration1" doc:name="HTTP Request configuration" doc:id="409ff61e-73eb-4f9c-a106-51ce20f58079" >
+		<http:request-connection protocol="HTTPS" host="jsonplaceholder.typicode.com" port="443" />
+	</http:request-config>
+	<flow name="consumoapiexternaejercicio5Flow" doc:id="82e0e53e-f6e8-4225-a327-76976f0165f7" >
+		<http:listener doc:name="Listener" doc:id="0f5f5ca8-78dc-451d-b8c4-e57b03549a64" config-ref="HTTP_Listener_config" path="/ejercicio5"/>
+		<http:request method="GET" doc:name="Request" doc:id="ada0907c-9afa-4881-bd19-98da6d2c79d0" config-ref="HTTP_Request_configuration1" path="/posts/1"/>
+		<logger level="INFO" doc:name="Logger" doc:id="3b8f3da2-b8a6-47be-9fff-d60022b18aae" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="c2abeeb6-eae9-4cf2-a1d5-d95f49f9dc0c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	titulo: payload.title
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
