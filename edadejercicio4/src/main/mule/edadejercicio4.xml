@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="033a3178-a980-4593-bd7c-af2e648ccf3f" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="edadejercicio4Flow" doc:id="9fb27c7b-4f4a-4d54-bc24-c601255b9ccc" >
+		<http:listener doc:name="Listener" doc:id="e8fa427e-11f4-4c3a-9c8b-20a909b544fc" config-ref="HTTP_Listener_config" path="/ejercicio4"/>
+		<choice doc:name="Choice" doc:id="c7a95c94-3886-43e5-8142-f7111dd73c11" >
+			<when expression="#[attributes.queryParams.edad as Number &gt;= 18]">
+				<set-payload value='"Eres mayor de edad"' doc:name="Set Payload" doc:id="635ff8c6-f2cb-46ad-b8ad-110ed2f624f0" />
+			</when>
+			<otherwise >
+				<set-payload value='"Eres menor de edad"' doc:name="Set Payload" doc:id="cec58189-a448-45d9-9400-e3a4d5440864" />
+			</otherwise>
+		</choice>
+	</flow>
+</mule>

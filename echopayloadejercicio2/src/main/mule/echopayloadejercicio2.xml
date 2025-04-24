@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e5a3135a-a439-4459-a83f-bdebd764a5d8" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="echopayloadejercicio2Flow" doc:id="30346bb8-8ec2-4a58-a3c5-387050c8876e" >
+		<http:listener doc:name="Listener" doc:id="197a1b21-74bc-4806-9261-effcf640c253" config-ref="HTTP_Listener_config" path="/ejercicio2" allowedMethods="POST"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="17262836-3d7d-40c4-ab00-c25debff521d" />
+	</flow>
+</mule>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e74b6ee5-e0b3-4bad-8e06-e9382a8ff322" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="holamundoejercicio1Flow" doc:id="47b2e77c-4fe5-4734-9eaa-6ec95003f3df" >
+		<http:listener doc:name="Listener" doc:id="fd27714b-8978-41a5-a9b3-7ad3fc345b69" config-ref="HTTP_Listener_config" path="/ejercicio1"/>
+		<choice doc:name="Choice" doc:id="b0d7b6dc-62f3-4b98-859c-f33db9f94d15" >
+			<when expression='#[attributes.method == "GET"]'>
+				<set-payload value='"Hola mundo desde MuleSoft GET!"' doc:name="Set Payload" doc:id="e9a657a2-136f-414d-af49-94dea4933c98" />
+			</when>
+			<otherwise >
+				<set-payload value='"Hola mundo desde MuleSoft POST!"' doc:name="Set Payload" doc:id="70014ae3-0a77-486f-b90a-81a409b962c6" />
+			</otherwise>
+		</choice>
+	</flow>
+</mule>
